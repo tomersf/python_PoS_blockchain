@@ -1,3 +1,4 @@
+from __future__ import annotations
 import uuid
 import time
 import copy
@@ -25,4 +26,10 @@ class Transaction():
         json_representation = copy.deepcopy(self.toJson())
         json_representation['signature'] = ''
         return json_representation
+        
+    def equals(self, transaction: Transaction) -> bool:
+        if self.id == transaction.id:
+            return True
+        return False
+        
         

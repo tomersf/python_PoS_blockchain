@@ -1,21 +1,23 @@
 from Transaction import Transaction
+from TransactionPool import TransactionPool
 from Wallet import Wallet
 
-def generate_transaction() -> Transaction:
-    SENDER = 'sender'
-    RECIEVER = 'reciever'
-    AMOUNT = 2
-    TYPE = 'TRANSFER'
-    generated_transaction = Transaction(SENDER,RECIEVER,AMOUNT,TYPE)
-    return generated_transaction
+SENDER = 'sender'
+RECIEVER = 'reciever'
+AMOUNT = 2
+TYPE = 'TRANSFER'
 
 if __name__ == '__main__':
-    transaction = generate_transaction()
     wallet = Wallet()
-    signature = wallet.sign(transaction.toJson())
-    transaction.sign(signature)
-    signature_validity = Wallet.validate_signature(transaction.payload(),
-                                                   signature,wallet.get_public_key_string())
-    print(signature_validity)
-
+    pool = TransactionPool()
+    
+    transaction = wallet.create_transaction(RECIEVER,AMOUNT,TYPE)
+    
+    if pool.is_transaction_exists(transaction) == False:
+        pool.add_transaction(transaction)
+        
+    if pool.is_transaction_exists(transaction) == False:
+        pool.add_transaction(transaction)
+        
+    print(pool.transactions)
     
