@@ -16,14 +16,14 @@ class Transaction():
         self.timestamp = time.time()
         self.signature = ''
     
-    def toJson(self):
+    def to_json(self):
         return self.__dict__
     
     def sign(self, signature):
         self.signature = signature
         
     def payload(self):
-        json_representation = copy.deepcopy(self.toJson())
+        json_representation = copy.deepcopy(self.to_json())
         json_representation['signature'] = ''
         return json_representation
         

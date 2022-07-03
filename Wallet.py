@@ -1,7 +1,9 @@
+from typing import List
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
 from BlockchainUtils import BlockchainUtils
 from Transaction import Transaction
+from Block import Block
 
 MODULO = 2048
 
@@ -35,3 +37,9 @@ class Wallet():
         signature = self.sign(transaction.payload())
         transaction.sign(signature)
         return transaction
+    
+    def create_block(self, transactions: List[Transaction], last_hash:str, block_count:int):
+        block = Block(transactions, last_hash,self.get_public_key_string(),block_count)
+        signature = self.sign(block.payload())
+        block.sign(signature)
+        return block
