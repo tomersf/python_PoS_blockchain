@@ -3,6 +3,7 @@ from TransactionPool import TransactionPool
 from Wallet import Wallet
 from Block import Block
 from Blockchain import Blockchain
+from AccountModel import AccountModel
 from constants import LAST_INDEX
 import pprint
 
@@ -13,6 +14,10 @@ TYPE = 'TRANSFER'
 
 if __name__ == '__main__':
     wallet = Wallet()
+    accountModel = AccountModel()
+    accountModel.update_balance(wallet.get_public_key_string(),10)
+    accountModel.update_balance(wallet.get_public_key_string(),-5)
+    print(accountModel.balances)
     pool = TransactionPool()
 
     transaction = wallet.create_transaction(RECIEVER, AMOUNT, TYPE)
