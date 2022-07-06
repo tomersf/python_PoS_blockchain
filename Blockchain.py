@@ -1,7 +1,10 @@
 from typing import List
 from Block import Block
 from BlockchainUtils import BlockchainUtils
+from Transaction import Transaction
 from constants import LAST_INDEX
+from AccountModel import AccountModel
+from pprint import pprint
 
 
 class Blockchain():
@@ -10,6 +13,7 @@ class Blockchain():
     
     def __init__(self) -> None:
         self.blocks : List[Block] = [Block.genesis()]
+        self.account_model = AccountModel()
         
     def add_block(self, block: Block) -> None:
         self.blocks.append(block)
@@ -32,4 +36,21 @@ class Blockchain():
         if latest_blockchain_block_hash == block.last_hash:
             return True
         return False
+    
+    def transaction_cover(self, transaction: Transaction):
+        sender_balance = self.account_model.get_balance(transaction.sender_pub_key)
+        if sender_balance >= transaction.amount:
+            return True
+        return False
+    
+    def get_covered_transaction_set(self, transactions: List[Transaction]):
+        covered_transactions = []
+        for transaction in transactions:
+            if self.transaction_cover(transaction):
+                covered_transactions.append(transaction)
+            else:
+                print('The following transaction is not covered by the sender!')
+                pprint(transaction.to_json())
+                
+        return covered_transactions
             
