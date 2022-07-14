@@ -1,0 +1,2 @@
+p2pnetwork==1.2
+jsonpickle==2.2

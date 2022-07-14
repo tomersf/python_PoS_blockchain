@@ -2,7 +2,12 @@ from typing import Literal
 
 
 LAST_INDEX = -1
+FIRST_NODE_PORT = 10001
+LOCAL_HOST = 'localhost'
 class TRANSFER_OPERATIONS:
     TRANSFER = 'TRANSFER'
     STAKE = 'STAKE'
     EXCHANGE = 'EXCHANGE'
+    
+class MESSAGE_TYPES:
+    DISCOVERY = 'DISCOVERY'
